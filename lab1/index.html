@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinyl store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .product-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+        }
+        .product-card img {
+            max-width: 100%;
+        }
+        button {
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Vinyl store</h1>
+
+    <section class="products">
+        <article class="product-card">
+            <img src="images/p1.png" alt="smesh-20">
+            <h3>СМЕШАРИКИ 20 лет</h3>
+            <p>Цена: 500 ₽</p>
+            <button>Добавить в корзину</button>
+        </article>
+
+        <article class="product-card">
+            <img src="images/p2.png" alt="smesh-remix">
+            <h3>СМЕШАРИКИ Ремиксы</h3>
+            <p>Цена: 1200 ₽</p>
+            <button>Добавить в корзину</button>
+        </article>
+
+        <article class="product-card">
+            <img src="images/p3.png" alt="smesh-themes">
+            <h3>СМЕШАРИКИ Темы</h3>
+            <p>Цена: 800 ₽</p>
+            <button>Добавить в корзину</button>
+        </article>
+    </section>
+
+</body>
+</html>
