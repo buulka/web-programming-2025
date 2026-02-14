@@ -108,6 +108,49 @@
             </div>
         </div>
     </div>
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="orderModal">
+            <div class="modal-header">
+                <h3 class="modal-title">Оформление заказа</h3>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div class="modal-content">
+                <form class="order-form" id="orderForm">
+                    <div class="form-group">
+                        <label for="firstName">Имя *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Фамилия *</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Адрес доставки *</label>
+                        <textarea id="address" name="address" rows="3" required placeholder="Укажите полный адрес доставки"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Контактный телефон *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="+7 (999) 999-99-99">
+                    </div>
+
+                    <div class="order-summary">
+                        <h4>Ваш заказ:</h4>
+                        <div class="order-items" id="orderItems">
+                            <!-- Список товаров будет добавлен через JS -->
+                        </div>
+                        <div class="order-total" id="orderTotal">
+                            Итого: 0 ₽
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Создать заказ</button>
+                </form>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
