@@ -3,59 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vinyl store</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-        .products {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .product-card {
-            border: 1px solid #ccc;
-            padding: 10px;
-            width: 200px;
-            text-align: center;
-        }
-        .product-card img {
-            max-width: 100%;
-        }
-        button {
-            cursor: pointer;
-            margin-top: 10px;
-        }
-    </style>
+    <title>SMESH Vinyl Store - Магазин виниловых пластинок</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"> SMESH Vinyl Store</h1>
+            <nav class="nav">
+                <button class="cart-toggle" id="cartToggle">
+                    <span class="cart-icon">🛒</span>
+                    <span class="cart-count" id="cartCount">0</span>
+                    <span class="cart-text">Корзина</span>
+                </button>
+            </nav>
+        </div>
+    </header>
 
-    <h1>Vinyl store</h1>
+    <main class="main">
+        <div class="container">
+            <section class="hero">
+                <h2 class="hero-title">Коллекция виниловых пластинок СМЕШАРИКИ</h2>
+                <p class="hero-description">Откройте для себя уникальные саундтреки любимого мультсериала</p>
+            </section>
 
-    <section class="products">
-        <article class="product-card">
-            <img src="images/p1.png" alt="smesh-20">
-            <h3>СМЕШАРИКИ 20 лет</h3>
-            <p>Цена: 500 ₽</p>
-            <button>Добавить в корзину</button>
-        </article>
+            <section class="products-section">
+                <h3 class="section-title">Наши товары</h3>
+                <div class="products">
+                    <article class="product-card" data-id="1">
+                        <div class="product-image">
+                            <img src="images/p1.png" alt="СМЕШАРИКИ 20 лет">
+                            <div class="product-badge">Хит</div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-title">СМЕШАРИКИ 20 лет</h4>
+                            <p class="product-description">Юбилейное издание с лучшими треками</p>
+                            <div class="product-price">500 ₽</div>
+                            <button class="add-to-cart-btn"
+                                    data-id="1"
+                                    data-name="СМЕШАРИКИ 20 лет"
+                                    data-price="500"
+                                    data-image="images/p1.png">
+                                Добавить в корзину
+                            </button>
+                        </div>
+                    </article>
 
-        <article class="product-card">
-            <img src="images/p2.png" alt="smesh-remix">
-            <h3>СМЕШАРИКИ Ремиксы</h3>
-            <p>Цена: 1200 ₽</p>
-            <button>Добавить в корзину</button>
-        </article>
+                    <article class="product-card" data-id="2">
+                        <div class="product-image">
+                            <img src="images/p2.png" alt="СМЕШАРИКИ Ремиксы">
+                            <div class="product-badge premium">Premium</div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-title">СМЕШАРИКИ Ремиксы</h4>
+                            <p class="product-description">Современные ремиксы классических мелодий</p>
+                            <div class="product-price">1200 ₽</div>
+                            <button class="add-to-cart-btn"
+                                    data-id="2"
+                                    data-name="СМЕШАРИКИ Ремиксы"
+                                    data-price="1200"
+                                    data-image="images/p2.png">
+                                Добавить в корзину
+                            </button>
+                        </div>
+                    </article>
 
-        <article class="product-card">
-            <img src="images/p3.png" alt="smesh-themes">
-            <h3>СМЕШАРИКИ Темы</h3>
-            <p>Цена: 800 ₽</p>
-            <button>Добавить в корзину</button>
-        </article>
-    </section>
-
+                    <article class="product-card" data-id="3">
+                        <div class="product-image">
+                            <img src="images/p3.png" alt="СМЕШАРИКИ Темы">
+                            <div class="product-badge">Новинка</div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-title">СМЕШАРИКИ Темы</h4>
+                            <p class="product-description">Тематические композиции для каждого персонажа</p>
+                            <div class="product-price">800 ₽</div>
+                            <button class="add-to-cart-btn"
+                                    data-id="3"
+                                    data-name="СМЕШАРИКИ Темы"
+                                    data-price="800"
+                                    data-image="images/p3.png">
+                                Добавить в корзину
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
 </body>
 </html>
