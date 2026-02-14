@@ -90,5 +90,24 @@
             </section>
         </div>
     </main>
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart" id="cart">
+        <div class="cart-header">
+            <h3 class="cart-title">Корзина</h3>
+            <button class="cart-close" id="cartClose">×</button>
+        </div>
+        <div class="cart-content">
+            <div class="cart-empty" id="cartEmpty">
+                В корзине пока что пусто
+            </div>
+            <div class="cart-items" id="cartItems">
+            </div>
+            <div class="cart-total" id="cartTotal" style="display: none;">
+                <div class="total-price" id="totalPrice">Итого: 0 ₽</div>
+                <button class="checkout-btn" id="checkoutBtn">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
