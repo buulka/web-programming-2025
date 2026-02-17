@@ -83,6 +83,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function saveToLocalStorage() {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    function loadFromLocalStorage() {
+        const saved = localStorage.getItem('tasks');
+        if (saved) {
+            tasks = JSON.parse(saved);
+            renderTasks();
+        }
+    }
+
+
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -93,10 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         tasks.push(newTask);
+        saveToLocalStorage();
         renderTasks();
         form.reset();
     });
 
+    loadFromLocalStorage();
     renderTasks();
 
 });
