@@ -1,251 +1,350 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f3f4f6;
-  color: #111827;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  padding: 20px;
 }
 
 .app {
   max-width: 900px;
-  margin: 24px auto;
-  padding: 16px;
-  background: #ffffff;
+  margin: 0 auto;
+  background: white;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
 .title {
-  margin: 0 0 16px;
   text-align: center;
+  padding: 20px;
+  background: #4a5568;
+  color: white;
 }
 
 .layout {
+  padding: 20px;
+}
+
+.controls {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.search-container,
+.sort-container,
+.status-container {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-container label,
+.sort-container label,
+.status-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+}
+
+#searchInput,
+#dateSort,
+#statusFilter {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+#searchInput:focus,
+#dateSort:focus,
+#statusFilter:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #999;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-search-btn:hover {
+  color: #333;
+}
+
+.search-wrapper {
+  position: relative;
 }
 
 .list-wrapper {
-  flex: 1;
-  background: #f9fafb;
+  background: #f8f9fa;
   border-radius: 6px;
-  border: 1px solid #e5e7eb;
-  padding: 12px;
+  padding: 20px;
+  border: 1px solid #e9ecef;
 }
 
 .list-wrapper form {
   display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 12px;
 }
 
-.list-wrapper form input[type="text"],
-.list-wrapper form input[type="date"] {
-  flex: 1 1 160px;
-  min-width: 0;
-  padding: 6px 8px;
-  font-size: 14px;
+.list-wrapper input[type="text"],
+.list-wrapper input[type="date"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  border: 1px solid #d1d5db;
+  min-width: 200px;
 }
 
-.list-wrapper form button[type="submit"] {
-  padding: 6px 12px;
-  border-radius: 4px;
+.list-wrapper button[type="submit"] {
+  padding: 10px 20px;
+  background: #28a745;
+  color: white;
   border: none;
-  background: #3b82f6;
-  color: #ffffff;
-  font-size: 14px;
+  border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
 }
 
-.list-wrapper form button[type="submit"]:hover {
-  background: #2563eb;
+.list-wrapper button[type="submit"]:hover {
+  background: #218838;
 }
 
 .tasks-table {
   width: 100%;
   border-collapse: collapse;
-  background: #ffffff;
+  background: white;
   border-radius: 6px;
   overflow: hidden;
-  font-size: 14px;
 }
 
-.tasks-table thead {
-  background: #e5e7eb;
-}
-
-.tasks-table th,
-.tasks-table td {
-  padding: 8px 10px;
-  border-bottom: 1px solid #e5e7eb;
+.tasks-table th {
+  background: #f8f9fa;
+  padding: 12px;
   text-align: left;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 2px solid #dee2e6;
 }
 
-.tasks-table tbody tr:nth-child(even) {
-  background: #f9fafb;
+.tasks-table td {
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.tasks-table tr:nth-child(even) {
+  background: #f8f9fa;
 }
 
 .actions-cell {
-  white-space: nowrap;
+  text-align: right;
 }
 
 .actions-cell button {
-  margin-left: 4px;
-  padding: 4px 8px;
-  font-size: 12px;
-  border-radius: 4px;
+  padding: 6px 10px;
+  margin-left: 5px;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .edit-btn {
-  background: #e0f2fe;
-  color: #0369a1;
+  background: #007bff;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #0056b3;
 }
 
 .delete-btn {
-  background: #fee2e2;
-  color: #b91c1c;
+  background: #dc3545;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+}
+
+.task-completed {
+  opacity: 0.6;
+}
+
+.task-completed td {
+  text-decoration: line-through;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
 }
 
 .modal {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(15, 23, 42, 0.4);
-  z-index: 50;
+  z-index: 1000;
+}
+
+.modal[style*="display: flex"] {
+  display: flex !important;
 }
 
 .modal-content {
-  background: #ffffff;
-  padding: 16px;
-  border-radius: 6px;
-  min-width: 280px;
-  max-width: 400px;
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
-}
-
-.delete-modal {
-  max-width: 320px;
+  background: white;
+  padding: 0;
+  border-radius: 8px;
+  max-width: 420px;
+  width: 90%;
+  max-height: 90vh;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  padding: 20px 20px 0 20px;
+  margin-bottom: 10px;
 }
 
 .modal-header h3 {
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
 }
 
 .close-btn {
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
+  color: #999;
+  padding: 5px;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  color: #333;
+  background: #f8f9fa;
 }
 
 .modal-body {
-  margin-bottom: 12px;
-}
-
-.modal-body form {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  padding: 0 20px 20px 20px;
 }
 
 .modal-body label {
-  font-size: 13px;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
 }
 
 .modal-body input[type="text"],
 .modal-body input[type="date"] {
-  padding: 6px 8px;
-  font-size: 14px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  border: 1px solid #d1d5db;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.modal-body input[type="text"]:focus,
+.modal-body input[type="date"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+.modal-body p {
+  margin: 0;
+  padding: 10px 0;
+  color: #666;
+  line-height: 1.5;
 }
 
 .modal-footer {
+  padding: 15px 20px 20px 20px;
   display: flex;
+  gap: 10px;
   justify-content: flex-end;
-  gap: 8px;
-  margin-top: 8px;
+  border-top: 1px solid #eee;
 }
 
 .modal-footer button {
-  padding: 6px 12px;
-  font-size: 14px;
-  border-radius: 4px;
+  padding: 10px 20px;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .save-btn {
-  background: #3b82f6;
-  color: #ffffff;
+  background: #28a745;
+  color: white;
+}
+
+.save-btn:hover {
+  background: #218838;
 }
 
 .cancel-btn {
-  background: #e5e7eb;
-  color: #111827;
+  background: #6c757d;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #5a6268;
 }
 
 .delete-confirm-btn {
-  background: #ef4444;
-  color: #ffffff;
+  background: #dc3545;
+  color: white;
 }
 
-.task-completed {
-    opacity: 0.6;
-}
-
-.task-completed td {
-    text-decoration: line-through;
-    color: #6b7280;
-    background-color: #f3f4f6 !important;
-}
-
-.task-completed .edit-btn,
-.task-completed .delete-btn {
-    opacity: 0.7;
-}
-
-input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    accent-color: #3b82f6;
-}
-
-.sort-container {
-  padding: 12px;
-}
-
-.sort-container label {
-  display: block;
-  font-size: 13px;
-  margin-bottom: 4px;
-  color: #374151;
-}
-
-#dateSort {
-  width: 100%;
-  padding: 6px 8px;
-  border-radius: 4px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
-  background: #ffffff;
+.delete-confirm-btn:hover {
+  background: #c82333;
 }
 
