@@ -20,28 +20,83 @@ document.addEventListener('DOMContentLoaded', () => {
     const listTitle = document.createElement('h2');
     listTitle.textContent = 'Tasks';
 
-    const list = document.createElement('ul');
-    list.className = 'list';
-    list.id = 'tasksList';
+    const table = document.createElement('table');
+    table.className = 'tasks-table';
+    table.id = 'tasksTable';
+
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+
+    ["Название", "Дата"].forEach(text => {
+        const th = document.createElement('th');
+        th.textContent = text;
+        headerRow.append(th);
+    });
+
+    thead.append(headerRow);
+
+    const tbody = document.createElement('tbody');
+    tbody.id = 'tasksBody';
+
+    table.append(thead, tbody);
 
     const form = document.createElement("form");
 
     const inputText = document.createElement("input");
     inputText.type = "text";
     inputText.placeholder = "Название задачи";
+    inputText.required = true;
 
     const inputDate = document.createElement("input");
     inputDate.type = "date";
+    inputDate.required = true;
 
     const addBtn = document.createElement("button");
+    addBtn.type = "submit";
     addBtn.textContent = "Добавить";
 
-    listWrapper.append(listTitle, list);
-    layout.append(controls, listWrapper);
-
     form.append(inputText, inputDate, addBtn);
-    app.append(title, layout, form);
 
+    listWrapper.append(listTitle, form, table);
+    layout.append(controls, listWrapper);
+    app.append(title, layout);
     document.body.append(app);
+
+    let tasks = []
+
+    function renderTasks() {
+        tbody.innerHTML = "";
+
+        tasks.forEach(task => {
+            const row = document.createElement('tr');
+
+            const textCell = document.createElement('td');
+            textCell.textContent = task.text;
+
+            const dateCell = document.createElement('td');
+            dateCell.textContent = task.date;
+
+            const actionsCell = document.createElement('td');
+
+            row.append(textCell, dateCell);
+            tbody.append(row);
+        });
+    }
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const newTask = {
+            id: Date.now(),
+            text: inputText.value,
+            date: inputDate.value,
+        };
+
+        tasks.push(newTask);
+        renderTasks();
+        form.reset();
+    });
+
+    renderTasks();
 
 });
