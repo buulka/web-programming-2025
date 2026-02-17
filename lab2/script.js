@@ -127,24 +127,77 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     buttonContainer.append(saveBtn, cancelBtn);
-
     editForm.append(editTextLabel, editTextInput, editDateLabel, editDateInput, buttonContainer);
-
     modalBody.append(editForm);
     modalContent.append(modalHeader, modalBody);
     modal.append(modalContent);
     document.body.append(modal);
 
+    const deleteModal = document.createElement('div');
+    deleteModal.className = 'modal';
+    deleteModal.id = 'deleteModal';
+
+    const deleteModalContent = document.createElement('div');
+    deleteModalContent.className = 'modal-content delete-modal';
+
+    const deleteModalHeader = document.createElement('div');
+    deleteModalHeader.className = 'modal-header';
+
+    const deleteModalTitle = document.createElement('h3');
+    deleteModalTitle.textContent = 'Подтверждение удаления';
+
+    const deleteCloseBtn = document.createElement('span');
+    deleteCloseBtn.className = 'close-btn';
+    deleteCloseBtn.innerHTML = '&times;';
+    deleteCloseBtn.addEventListener('click', () => {
+        deleteModal.style.display = 'none';
+    });
+
+    deleteModalHeader.append(deleteModalTitle, deleteCloseBtn);
+
+    const deleteModalBody = document.createElement('div');
+    deleteModalBody.className = 'modal-body';
+    deleteModalBody.innerHTML = '<p>Вы уверены, что хотите удалить эту задачу?</p>';
+
+    const deleteModalFooter = document.createElement('div');
+    deleteModalFooter.className = 'modal-footer';
+
+    const confirmDeleteBtn = document.createElement('button');
+    confirmDeleteBtn.type = 'button';
+    confirmDeleteBtn.textContent = 'Удалить';
+    confirmDeleteBtn.className = 'delete-confirm-btn';
+
+    const cancelDeleteBtn = document.createElement('button');
+    cancelDeleteBtn.type = 'button';
+    cancelDeleteBtn.textContent = 'Отмена';
+    cancelDeleteBtn.className = 'cancel-btn';
+    cancelDeleteBtn.addEventListener('click', () => {
+        deleteModal.style.display = 'none';
+    });
+
+    deleteModalFooter.append(confirmDeleteBtn, cancelDeleteBtn);
+    deleteModalContent.append(deleteModalHeader, deleteModalBody, deleteModalFooter);
+    deleteModal.append(deleteModalContent);
+    document.body.append(deleteModal);
+
     let tasks = [];
     let currentEditId = null;
+    let currentDeleteId = null;
 
     function deleteTask(id) {
-        if (confirm('Вы уверены, что хотите удалить эту задачу?')) {
-            tasks = tasks.filter(task => task.id !== id);
+        currentDeleteId = id;
+        deleteModal.style.display = 'flex';
+    }
+
+    confirmDeleteBtn.addEventListener('click', () => {
+        if (currentDeleteId) {
+            tasks = tasks.filter(task => task.id !== currentDeleteId);
             saveToLocalStorage();
             renderTasks();
+            deleteModal.style.display = 'none';
+            currentDeleteId = null;
         }
-    }
+    });
 
     function openEditModal(id) {
         const task = tasks.find(t => t.id === id);
@@ -190,12 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
             textCell.textContent = task.text;
 
             const dateCell = document.createElement('td');
-            const date = new Date(task.date);
-            dateCell.textContent = date.toLocaleDateString('ru-RU', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+            dateCell.textContent = task.date;
 
             const actionsCell = document.createElement('td');
             actionsCell.className = 'actions-cell';
@@ -263,6 +311,10 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.style.display = 'none';
             currentEditId = null;
             editForm.reset();
+        }
+        if (e.target === deleteModal) {
+            deleteModal.style.display = 'none';
+            currentDeleteId = null;
         }
     });
 
