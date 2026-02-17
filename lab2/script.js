@@ -24,8 +24,24 @@ document.addEventListener('DOMContentLoaded', () => {
     list.className = 'list';
     list.id = 'tasksList';
 
+    const form = document.createElement("form");
+
+    const inputText = document.createElement("input");
+    inputText.type = "text";
+    inputText.placeholder = "Название задачи";
+
+    const inputDate = document.createElement("input");
+    inputDate.type = "date";
+
+    const addBtn = document.createElement("button");
+    addBtn.textContent = "Добавить";
+
     listWrapper.append(listTitle, list);
     layout.append(controls, listWrapper);
-    app.append(title, layout);
+
+    form.append(inputText, inputDate, addBtn);
+    app.append(title, layout, form);
+
     document.body.append(app);
+
 });
