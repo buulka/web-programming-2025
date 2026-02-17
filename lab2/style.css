@@ -1,0 +1,208 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.app {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+}
+
+.title {
+  margin: 0 0 16px;
+  text-align: center;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.list-wrapper {
+  flex: 1;
+  background: #f9fafb;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  padding: 12px;
+}
+
+.list-wrapper form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.list-wrapper form input[type="text"],
+.list-wrapper form input[type="date"] {
+  flex: 1 1 160px;
+  min-width: 0;
+  padding: 6px 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+}
+
+.list-wrapper form button[type="submit"] {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  background: #3b82f6;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.list-wrapper form button[type="submit"]:hover {
+  background: #2563eb;
+}
+
+.tasks-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.tasks-table thead {
+  background: #e5e7eb;
+}
+
+.tasks-table th,
+.tasks-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.tasks-table tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+.actions-cell {
+  white-space: nowrap;
+}
+
+.actions-cell button {
+  margin-left: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.delete-btn {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.4);
+  z-index: 50;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 6px;
+  min-width: 280px;
+  max-width: 400px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+}
+
+.delete-modal {
+  max-width: 320px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.close-btn {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-body {
+  margin-bottom: 12px;
+}
+
+.modal-body form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-body label {
+  font-size: 13px;
+}
+
+.modal-body input[type="text"],
+.modal-body input[type="date"] {
+  padding: 6px 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.modal-footer button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.save-btn {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.delete-confirm-btn {
+  background: #ef4444;
+  color: #ffffff;
+}

@@ -9,16 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const layout = document.createElement('div');
     layout.className = 'layout';
 
-    const controls = document.createElement('section');
-    controls.className = 'controls';
-    controls.setAttribute('aria-label', 'Task controls');
-
     const listWrapper = document.createElement('section');
     listWrapper.className = 'list-wrapper';
     listWrapper.setAttribute('aria-label', 'Task list');
-
-    const listTitle = document.createElement('h2');
-    listTitle.textContent = 'Tasks';
 
     const table = document.createElement('table');
     table.className = 'tasks-table';
@@ -57,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.append(inputText, inputDate, addBtn);
 
-    listWrapper.append(listTitle, form, table);
-    layout.append(controls, listWrapper);
+    listWrapper.append(form, table);
+    layout.append(listWrapper);
     app.append(title, layout);
     document.body.append(app);
 
