@@ -9,9 +9,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const layout = document.createElement('div');
     layout.className = 'layout';
 
+    const controls = document.createElement('section');
+    controls.className = 'controls';
+    controls.setAttribute('aria-label', 'Task controls');
+
+    const sortContainer = document.createElement('div');
+    sortContainer.className = 'sort-container';
+
+    const sortLabel = document.createElement('label');
+    sortLabel.textContent = 'Сортировка по дате:';
+    sortLabel.htmlFor = 'dateSort';
+
+    const sortSelect = document.createElement('select');
+    sortSelect.id = 'dateSort';
+
+    [
+        { value: 'none', text: 'Без сортировки' },
+        { value: 'asc', text: 'Сначала старые' },
+        { value: 'desc', text: 'Сначала новые' }
+    ].forEach(({ value, text }) => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = text;
+        sortSelect.append(option);
+    });
+
+    sortLabel.append(sortSelect);
+    sortContainer.append(sortLabel);
+    controls.append(sortContainer);
+
     const listWrapper = document.createElement('section');
     listWrapper.className = 'list-wrapper';
     listWrapper.setAttribute('aria-label', 'Task list');
+
+    const listTitle = document.createElement('h2');
+    listTitle.textContent = 'Tasks';
 
     const table = document.createElement('table');
     table.className = 'tasks-table';
@@ -50,8 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.append(inputText, inputDate, addBtn);
 
-    listWrapper.append(form, table);
-    layout.append(listWrapper);
+    listWrapper.append(listTitle, form, table);
+    layout.append(controls, listWrapper);
     app.append(title, layout);
     document.body.append(app);
 
@@ -227,8 +259,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderTasks() {
         tbody.innerHTML = "";
+        const sortValue = sortSelect.value;
+        let sortedTasks = [...tasks];
 
-        tasks.forEach(task => {
+        if (sortValue !== 'none') {
+            sortedTasks.sort((a, b) => {
+                const dateA = a.date ? new Date(a.date).getTime() : 0;
+                const dateB = b.date ? new Date(b.date).getTime() : 0;
+                return sortValue === 'asc' ? dateA - dateB : dateB - dateA;
+            });
+        }
+
+        sortedTasks.forEach(task => {
             const row = document.createElement('tr');
             row.dataset.id = task.id;
             if (task.completed) row.classList.add('task-completed');
@@ -266,7 +308,6 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteBtn.addEventListener('click', () => deleteTask(task.id));
 
             actionsCell.append(editBtn, deleteBtn);
-
             row.append(statusCell, textCell, dateCell, actionsCell);
             tbody.append(row);
         });
@@ -323,6 +364,8 @@ document.addEventListener('DOMContentLoaded', () => {
             currentDeleteId = null;
         }
     });
+
+    sortSelect.addEventListener('change', renderTasks);
 
     loadFromLocalStorage();
     renderTasks();
