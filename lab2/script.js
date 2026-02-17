@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
 
-    ["Название", "Дата", "Действия"].forEach(text => {
+    ["Статус", "Название", "Дата", "Действия"].forEach(text => {
         const th = document.createElement('th');
         th.textContent = text;
         headerRow.append(th);
@@ -231,6 +231,18 @@ document.addEventListener('DOMContentLoaded', () => {
         tasks.forEach(task => {
             const row = document.createElement('tr');
             row.dataset.id = task.id;
+            if (task.completed) row.classList.add('task-completed');
+
+            const statusCell = document.createElement('td');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = task.completed;
+            checkbox.addEventListener('change', () => {
+                task.completed = checkbox.checked;
+                saveToLocalStorage();
+                renderTasks();
+            });
+            statusCell.append(checkbox);
 
             const textCell = document.createElement('td');
             textCell.textContent = task.text;
@@ -255,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             actionsCell.append(editBtn, deleteBtn);
 
-            row.append(textCell, dateCell, actionsCell);
+            row.append(statusCell, textCell, dateCell, actionsCell);
             tbody.append(row);
         });
     }
@@ -289,6 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: Date.now(),
             text: inputText.value.trim(),
             date: inputDate.value,
+            completed: false
         };
 
         tasks.push(newTask);
