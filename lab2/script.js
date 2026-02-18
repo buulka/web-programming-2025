@@ -8,7 +8,6 @@
             box-sizing: border-box;
         `;
 
-        // Добавляем медиа-запросы для адаптивности
         const style = document.createElement('style');
         style.textContent = `
             @media (max-width: 768px) {
@@ -513,7 +512,7 @@
             th.textContent = text;
             th.style.cssText = `
                 padding: 15px 18px;
-                text-align: left;
+                text-align: center;
                 font-weight: 600;
                 color: #2f3e46;
                 border-bottom: 2px solid #84a98c;
@@ -590,7 +589,7 @@
 
         const editCloseBtn = document.createElement('span');
         editCloseBtn.className = 'close-btn';
-        editCloseBtn.innerHTML = '&times;';
+        editCloseBtn.textContent = '×';;
         editCloseBtn.style.cssText = `
             font-size: 28px;
             cursor: pointer;
@@ -755,7 +754,7 @@
             cursor: pointer;
             font-size: 14px;
             font-weight: 500;
-            background: linear-gradient(135deg, #cad2c5 0%, #b7bfb2 100%);
+            background: linear-gradient(135deg, #ff9999 0%, #ff6b6b 100%);
             color: #2f3e46;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(202, 210, 197, 0.3);
@@ -785,7 +784,6 @@
         editModal.append(editModalContent);
         document.body.append(editModal);
 
-        // Модальное окно удаления
         const deleteModal = document.createElement('div');
         deleteModal.className = 'modal';
         deleteModal.id = 'deleteModal';
@@ -838,7 +836,7 @@
 
         const deleteCloseBtn = document.createElement('span');
         deleteCloseBtn.className = 'close-btn';
-        deleteCloseBtn.innerHTML = '&times;';
+        deleteCloseBtn.textContent = '×';
         deleteCloseBtn.style.cssText = `
             font-size: 28px;
             cursor: pointer;
@@ -970,7 +968,7 @@
     let currentDeleteId = null;
 
     function renderTasks() {
-        tbody.innerHTML = "";
+        tbody.replaceChildren();
 
         const searchQuery = searchInput.value.toLowerCase().trim();
         const statusValue = statusSelect.value;
@@ -1036,7 +1034,7 @@ let sortedTasks = [...filteredTasks];
         });
 
         row.addEventListener('dragstart', (e) => {
-            if (window.innerWidth > 768) { // Отключаем drag на мобильных
+            if (window.innerWidth > 768) {
                 dragSrcIndex = index;
                 row.style.cssText += `
                     opacity: 0.5;
@@ -1139,6 +1137,7 @@ let sortedTasks = [...filteredTasks];
             text-decoration: ${task.completed ? 'line-through' : 'none'};
             font-weight: ${task.completed ? '400' : '500'};
             vertical-align: middle;
+            text-align: center;
             word-break: break-word;
 
             @media (max-width: 768px) {
@@ -1160,6 +1159,7 @@ let sortedTasks = [...filteredTasks];
             text-decoration: ${task.completed ? 'line-through' : 'none'};
             font-size: 14px;
             vertical-align: middle;
+            text-align: center;
             white-space: nowrap;
 
             @media (max-width: 768px) {
@@ -1177,7 +1177,7 @@ let sortedTasks = [...filteredTasks];
         actionsCell.className = 'actions-cell';
         actionsCell.style.cssText = `
             padding: 15px 18px;
-            text-align: right;
+            text-align: center;
             vertical-align: middle;
 
             @media (max-width: 768px) {
@@ -1188,12 +1188,14 @@ let sortedTasks = [...filteredTasks];
             @media (max-width: 480px) {
                 padding: 8px 6px;
                 display: flex;
+                justify-content: center;
                 flex-direction: row;
                 gap: 5px;
             }
 
             @media (max-width: 360px) {
                 flex-direction: column;
+                align-items: center;
             }
         `;
 
@@ -1259,7 +1261,7 @@ let sortedTasks = [...filteredTasks];
             border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
-            background: linear-gradient(135deg, #84a98c 0%, #52796f 100%);
+            background: linear-gradient(135deg, #ff9999 0%, #ff6b6b 100%);
             color: white;
             transition: all 0.2s ease;
             box-shadow: 0 2px 8px rgba(82, 121, 111, 0.3);
