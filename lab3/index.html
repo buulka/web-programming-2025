@@ -1,12 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2048 игра</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <header class="header">
+            <h1>2048</h1>
+            <div class="score-container">
+                <div class="score-label">Счёт</div>
+                <div id="score" class="score-value">0</div>
+            </div>
+        </header>
+
+        <div class="controls">
+            <button class="btn" id="newGameBtn">Новая игра</button>
+            <button class="btn" id="undoBtn">Отмена</button>
+            <button class="btn" id="leaderboardBtn">Лидеры</button>
+        </div>
+
+        <div class="game-board" id="gameBoard"></div>
+
+        <div class="modal" id="leaderboardModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Таблица лидеров</h2>
+                    <button class="close-btn" id="closeModalBtn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Имя</th>
+                                <th>Очки</th>
+                                <th>Дата</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="gameOverModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="gameOverMessage">Игра окончена!</h2>
+                </div>
+                <div class="modal-body">
+                    <div id="scoreSubmitContainer">
+                        <input type="text" id="playerName" placeholder="Введите ваше имя" maxlength="20">
+                        <button class="btn" id="saveScoreBtn">Сохранить результат</button>
+                    </div>
+                    <div id="scoreSavedMessage" style="display: none;">
+                        Ваш рекорд сохранен!
+                    </div>
+                    <button class="btn" id="playAgainBtn">Начать заново</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-controls" id="mobileControls">
+            <button class="btn" id="moveUpBtn">↑</button>
+            <button class="btn" id="moveLeftBtn">←</button>
+            <button class="btn" id="moveDownBtn">↓</button>
+            <button class="btn" id="moveRightBtn">→</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
