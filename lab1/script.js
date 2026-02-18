@@ -108,49 +108,105 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cart.length === 0) {
             cartEmpty.style.display = 'block';
             cartTotal.style.display = 'none';
-            cartItems.innerHTML = '';
+            while (cartItems.firstChild) {
+                cartItems.removeChild(cartItems.firstChild);
+            }
             return;
         }
-        
+
         cartEmpty.style.display = 'none';
         cartTotal.style.display = 'block';
-        
-        cartItems.innerHTML = '';
-        
+
+        while (cartItems.firstChild) {
+            cartItems.removeChild(cartItems.firstChild);
+        }
+
+        const fragment = document.createDocumentFragment();
+
         cart.forEach(item => {
             const cartItem = createCartItemElement(item);
-            cartItems.appendChild(cartItem);
+            fragment.appendChild(cartItem);
         });
-        
+
+        cartItems.appendChild(fragment);
+
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         totalPrice.textContent = `Итого: ${total} ₽`;
     }
-    
+
     function createCartItemElement(item) {
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
-        cartItem.innerHTML = `
-            <div class="cart-item-image">
-                <img src="${item.image}" alt="${item.name}">
-            </div>
-            <div class="cart-item-info">
-                <div class="cart-item-title">${item.name}</div>
-                <div class="cart-item-price">${item.price} ₽</div>
-                <div class="cart-item-controls">
-                    <button class="quantity-btn" onclick="updateQuantity('${item.id}', ${item.quantity - 1})">-</button>
-                    <span class="quantity-display">${item.quantity}</span>
-                    <button class="quantity-btn" onclick="updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
-                    <button class="remove-btn" onclick="removeFromCart('${item.id}')">Удалить</button>
-                </div>
-            </div>
-        `;
+
+        const imageDiv = document.createElement('div');
+        imageDiv.className = 'cart-item-image';
+
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.name;
+        imageDiv.appendChild(img);
+
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'cart-item-info';
+
+        const titleDiv = document.createElement('div');
+        titleDiv.className = 'cart-item-title';
+        titleDiv.textContent = item.name;
+
+        const priceDiv = document.createElement('div');
+        priceDiv.className = 'cart-item-price';
+        priceDiv.textContent = `${item.price} ₽`;
+
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'cart-item-controls';
+
+        const minusBtn = document.createElement('button');
+        minusBtn.className = 'quantity-btn';
+        minusBtn.textContent = '-';
+        minusBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            updateQuantity(item.id, item.quantity - 1);
+        });
+
+        const quantitySpan = document.createElement('span');
+        quantitySpan.className = 'quantity-display';
+        quantitySpan.textContent = item.quantity;
+
+        const plusBtn = document.createElement('button');
+        plusBtn.className = 'quantity-btn';
+        plusBtn.textContent = '+';
+        plusBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            updateQuantity(item.id, item.quantity + 1);
+        });
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-btn';
+        removeBtn.textContent = 'Удалить';
+        removeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            removeFromCart(item.id);
+        });
+
+        controlsDiv.appendChild(minusBtn);
+        controlsDiv.appendChild(quantitySpan);
+        controlsDiv.appendChild(plusBtn);
+        controlsDiv.appendChild(removeBtn);
+
+        infoDiv.appendChild(titleDiv);
+        infoDiv.appendChild(priceDiv);
+        infoDiv.appendChild(controlsDiv);
+
+        cartItem.appendChild(imageDiv);
+        cartItem.appendChild(infoDiv);
+
         return cartItem;
     }
-    
+
     function saveCartToStorage() {
         localStorage.setItem('cart', JSON.stringify(cart));
     }
-    
+
     function loadCartFromStorage() {
         const savedCart = localStorage.getItem('cart');
         if (savedCart) {
@@ -158,48 +214,48 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCartDisplay();
         }
     }
-    
+
     function showAddedFeedback(button) {
         const originalText = button.textContent;
         button.textContent = '✓ Добавлено!';
         button.style.background = '#2ed573';
         button.disabled = true;
-        
+
         setTimeout(() => {
             button.textContent = originalText;
             button.style.background = '';
             button.disabled = false;
         }, 1500);
     }
-    
+
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', function() {
             if (cart.length === 0) {
                 alert('Корзина пуста!');
                 return;
             }
-            
+
             openModal();
             updateOrderSummary();
         });
     }
-    
+
     function openModal() {
         modalOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-    
+
     function closeModal() {
         if (modalOverlay) {
             modalOverlay.classList.remove('active');
             document.body.style.overflow = '';
         }
     }
-    
+
     if (modalClose) {
         modalClose.addEventListener('click', closeModal);
     }
-    
+
     if (modalOverlay) {
         modalOverlay.addEventListener('click', function(e) {
             if (e.target === modalOverlay) {
@@ -207,33 +263,54 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     function updateOrderSummary() {
         if (!orderItems || !orderTotal) return;
-        
-        orderItems.innerHTML = '';
-        
+
+        while (orderItems.firstChild) {
+            orderItems.removeChild(orderItems.firstChild);
+        }
+
+        const fragment = document.createDocumentFragment();
+
         cart.forEach(item => {
             const orderItem = document.createElement('div');
             orderItem.className = 'order-item';
-            orderItem.innerHTML = `
-                <div class="order-item-info">
-                    <div class="order-item-name">${item.name}</div>
-                    <div class="order-item-quantity">${item.quantity} шт.</div>
-                </div>
-                <div class="order-item-price">${item.price * item.quantity} ₽</div>
-            `;
-            orderItems.appendChild(orderItem);
+
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'order-item-info';
+
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'order-item-name';
+            nameDiv.textContent = item.name;
+
+            const quantityDiv = document.createElement('div');
+            quantityDiv.className = 'order-item-quantity';
+            quantityDiv.textContent = `${item.quantity} шт.`;
+
+            infoDiv.appendChild(nameDiv);
+            infoDiv.appendChild(quantityDiv);
+
+            const priceDiv = document.createElement('div');
+            priceDiv.className = 'order-item-price';
+            priceDiv.textContent = `${item.price * item.quantity} ₽`;
+
+            orderItem.appendChild(infoDiv);
+            orderItem.appendChild(priceDiv);
+
+            fragment.appendChild(orderItem);
         });
-        
+
+        orderItems.appendChild(fragment);
+
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         orderTotal.textContent = `Итого: ${total} ₽`;
     }
-    
+
     if (orderForm) {
         orderForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const formData = new FormData(orderForm);
             const orderData = {
                 firstName: formData.get('firstName'),
@@ -243,34 +320,73 @@ document.addEventListener('DOMContentLoaded', function() {
                 items: cart,
                 total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
             };
-            
+
             console.log('Данные заказа:', orderData);
-            
+
             showSuccessMessage();
-            
+
             cart = [];
             saveCartToStorage();
             updateCartDisplay();
-            
+
             closeCart();
         });
     }
-    
+
     function showSuccessMessage() {
         if (!orderModal) return;
-        
-        orderModal.innerHTML = `
-            <div class="success-message">
-                <h3>🎉 Заказ создан!</h3>
-                <p>Спасибо за покупку! Мы свяжемся с вами в ближайшее время для подтверждения заказа.</p>
-                <button class="success-btn" onclick="closeModal()">Продолжить покупки</button>
-            </div>
-        `;
+
+        while (orderModal.firstChild) {
+            orderModal.removeChild(orderModal.firstChild);
+        }
+
+        const modalHeader = document.createElement('div');
+        modalHeader.className = 'modal-header';
+
+        const modalTitle = document.createElement('h3');
+        modalTitle.className = 'modal-title';
+        modalTitle.textContent = 'Заказ оформлен!';
+
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'modal-close';
+        closeBtn.id = 'modalCloseSuccess';
+        closeBtn.textContent = '×';
+        closeBtn.addEventListener('click', closeModal);
+
+        modalHeader.appendChild(modalTitle);
+        modalHeader.appendChild(closeBtn);
+
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success-message';
+
+        const title = document.createElement('h3');
+        title.textContent = 'Спасибо за покупку!';
+
+        const message = document.createElement('p');
+        message.textContent = 'Мы свяжемся с вами в ближайшее время для подтверждения заказа.';
+
+        const button = document.createElement('button');
+        button.className = 'success-btn';
+        button.id = 'continueShoppingBtn';
+        button.textContent = 'Продолжить покупки';
+        button.addEventListener('click', closeModal);
+
+        successDiv.appendChild(title);
+        successDiv.appendChild(message);
+        successDiv.appendChild(button);
+
+        modalContent.appendChild(successDiv);
+
+        orderModal.appendChild(modalHeader);
+        orderModal.appendChild(modalContent);
     }
-    
+
     window.removeFromCart = removeFromCart;
     window.updateQuantity = updateQuantity;
     window.closeModal = closeModal;
-    
+
     updateCartDisplay();
 });
