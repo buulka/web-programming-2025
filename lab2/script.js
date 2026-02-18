@@ -396,6 +396,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         `;
 
+
         const form = document.createElement("form");
         form.className = 'form';
         form.style.cssText = `
@@ -532,7 +533,19 @@
 
         table.append(thead, tbody);
 
-        listWrapper.append(form, table);
+        const tableContainer = document.createElement('div');
+        tableContainer.className = 'table-container';
+        tableContainer.style.cssText = `
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 20px;
+            border-radius: 12px;
+        `;
+
+        tableContainer.append(table);
+        listWrapper.append(form, tableContainer);
+
         layout.append(controls, listWrapper);
         app.append(title, layout);
         document.body.append(app);
