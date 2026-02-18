@@ -348,3 +348,30 @@ input[type="checkbox"] {
   background: #c82333;
 }
 
+.tasks-table tr {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.tasks-table tr.dragging {
+  opacity: 0.5;
+  background-color: #e0f7fa;
+  transform: scale(1.02);
+}
+
+.tasks-table tr.drag-over {
+  border-top: 3px solid #007bff;
+}
+
+.tasks-table tr.task-completed td {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.tasks-table tr:hover {
+  cursor: grab;
+}
+
+.tasks-table tr:active {
+  cursor: grabbing;
+}
+

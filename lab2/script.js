@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearSearchBtn.title = 'Сбросить поиск';
     clearSearchBtn.addEventListener('click', () => {
         searchInput.value = '';
-        renderTasks();
+        renderTTasks();
     });
 
     searchWrapper.append(searchInput, clearSearchBtn);
@@ -288,10 +288,46 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        sortedTasks.forEach(task => {
+        let dragSrcIndex = null;
+
+        sortedTasks.forEach((task, index) => {
             const row = document.createElement('tr');
             row.dataset.id = task.id;
+            row.draggable = true;
             if (task.completed) row.classList.add('task-completed');
+
+            row.addEventListener('dragstart', (e) => {
+                dragSrcIndex = index;
+                row.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+            });
+
+            row.addEventListener('dragend', () => {
+                row.classList.remove('dragging');
+                [...tbody.querySelectorAll('tr')].forEach(r => r.classList.remove('drag-over'));
+            });
+
+            row.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                const rows = [...tbody.querySelectorAll('tr')];
+                rows.forEach(r => r.classList.remove('drag-over'));
+                row.classList.add('drag-over');
+            });
+
+            row.addEventListener('dragleave', () => {
+                row.classList.remove('drag-over');
+            });
+
+            row.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const dragOverIndex = index;
+                if (dragSrcIndex === null || dragSrcIndex === dragOverIndex) return;
+                const [movedTask] = tasks.splice(dragSrcIndex, 1);
+                tasks.splice(dragOverIndex, 0, movedTask);
+                saveToLocalStorage();
+                renderTasks();
+            });
 
             const statusCell = document.createElement('td');
             const checkbox = document.createElement('input');
@@ -330,6 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tbody.append(row);
         });
     }
+
 
     function openEditModal(id) {
         const task = tasks.find(t => t.id === id);
