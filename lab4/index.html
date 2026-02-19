@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогноз погоды</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header class="header">
+        <h1>Прогноз погоды</h1>
+        <button id="refreshBtn" class="btn refresh-btn">Обновить</button>
+    </header>
 
+    <main class="main">
+        <section class="weather-section current-location">
+            <h2>Текущее местоположение</h2>
+            <div class="forecast-container" id="currentForecast">
+                <div class="forecast-day">
+                    <h3>Сегодня</h3>
+                    <div class="weather-info">
+                        <img src="" alt="Иконка" class="weather-icon">
+                        <p class="temp">--°C</p>
+                        <p class="description">--</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="additional-cities" id="additionalCities">
+            <h2>Другие города</h2>
+            <div class="cities-list" id="citiesList">
+            </div>
+            <button class="btn add-city-btn" id="addCityBtn">Добавить город</button>
+        </section>
+    </main>
+
+    <div class="modal" id="cityModal">
+        <div class="modal-content">
+            <h3>Введите город</h3>
+            <input type="text" id="cityInput" placeholder="Название города (например, Москва)">
+            <div class="modal-buttons">
+                <button class="btn" id="submitCity">Получить прогноз</button>
+                <button class="btn cancel-btn" id="cancelCity">Отмена</button>
+            </div>
+            <p class="error" id="cityError"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
