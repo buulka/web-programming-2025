@@ -58,7 +58,6 @@ class WeatherApp {
                 this.fetchWeatherByCoords(position.coords.latitude, position.coords.longitude);
             },
             (error) => {
-                console.error('Geolocation error:', error);
                 this.showCityModal('Доступ к местоположению отклонен. Введите город вручную.');
             }
         );
@@ -86,7 +85,6 @@ class WeatherApp {
             this.saveToStorage();
 
         } catch (error) {
-            console.error('❌ Ошибка загрузки:', error);
             if (!isAdditional) {
                 this.showCityModal('Ошибка загрузки погоды');
             }
@@ -119,7 +117,6 @@ class WeatherApp {
             };
 
         } catch (error) {
-            console.error('❌ Ошибка поиска города:', error);
             if (!isAdditional) {
                 this.showCityError('Ошибка загрузки. Проверьте интернет.');
             }
